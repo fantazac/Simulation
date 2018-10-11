@@ -9,11 +9,11 @@ public class BallCollisionDetector : MonoBehaviour
     private const float ACCELERATION = -9.8f;
     private const float SPEED_PERCENTAGE_KEPT_ON_COLLISION_WITH_FLOOR = 0.9f;
 
-    private void Start()
+    public void SetInitialSpeed(bool isRightSpawner)
     {
-        speed = Vector3.right * Random.Range(1f, 3f) + Vector3.up * Random.Range(2f, 5f) + Vector3.forward * Random.Range(-2f, 2f);
+        float xMultiplier = isRightSpawner ? -1f : 1f;
+        speed = Vector3.right * Random.Range(1f, 4f) * xMultiplier + Vector3.up * Random.Range(1f, 4f) + Vector3.forward * Random.Range(-1f, 1f);
         initialYSpeed = speed.y;
-        Debug.Log(speed);
     }
 
     private void Update()
@@ -21,14 +21,13 @@ public class BallCollisionDetector : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, transform.localScale.x * 0.5f);
         foreach (Collider collider in colliders)
         {
-            if (collider is BoxCollider)
+            if (collider.gameObject.tag == "Floor" && speed.y < 0)
             {
                 timeSinceCreation = 0;
                 initialYSpeed = -speed.y * SPEED_PERCENTAGE_KEPT_ON_COLLISION_WITH_FLOOR;
                 speed = new Vector3(speed.x, initialYSpeed, speed.z);
-                Debug.Log(speed);
             }
-            else if (collider is SphereCollider && collider.GetComponent<MeshRenderer>().material.color != GetComponent<MeshRenderer>().material.color)
+            else if (collider.gameObject.tag == "ColorGiver" && collider.GetComponent<MeshRenderer>().material.color != GetComponent<MeshRenderer>().material.color)
             {
                 GetComponent<MeshRenderer>().material.color = collider.GetComponent<MeshRenderer>().material.color;
             }
