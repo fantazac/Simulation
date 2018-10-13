@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4254204575193442}
   - component: {fileID: 33980668913121468}
   - component: {fileID: 23259384392683408}
-  - component: {fileID: 135878470336972722}
-  m_Layer: 0
+  - component: {fileID: 114082581865997808}
+  m_Layer: 9
   m_Name: YellowColorGiver
   m_TagString: ColorGiver
   m_Icon: {fileID: 0}
@@ -83,15 +83,16 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1372048018080490}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!135 &135878470336972722
-SphereCollider:
+--- !u!114 &114082581865997808
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1372048018080490}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e47bcc972d3a76478b4e6b052804570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DebugDrawBounds: 0
+  radius: 1
