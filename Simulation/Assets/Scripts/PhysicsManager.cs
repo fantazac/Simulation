@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PhysicsManager : MonoBehaviour
 {
-    public static PhysicsManager instance = null;
+    private static PhysicsManager instance = null;
     private List<MyCollider> registeredColliders;
 
     private void Awake()
