@@ -1,29 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MySphereCollider : MyCollider
 {
-    public float radius = 1f;
+    private float radius;
 
-    // draw gizmos sphere to represent collisions in editor 
+    public float Radius { get { return radius; } }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(transform.position, radius);
     }
 
-    // do a collisions test between itself and the other collider
-    public override bool DoCollisionTest(MyCollider other)
+    private void Start()
+    {
+        radius = transform.localScale.x * 0.5f;
+    }
+
+    public override bool DetectCollisionWithCollider(MyCollider other)
     {
         if (other is MyBoxCollider)
-            return PhysicsManager.OverlapSphereBox(this, (MyBoxCollider) other);
+            return PhysicsManager.OverlapSphereBox(this, (MyBoxCollider)other);
 
         if (other is MySphereCollider)
-            return PhysicsManager.OverlapSphereSphere(this, (MySphereCollider) other);
+            return PhysicsManager.OverlapSphereSphere(this, (MySphereCollider)other);
 
-        Debug.Log("[MyBoxCollider].DoCollision: Unhandled collision type: " + other.gameObject.name);
+        Debug.Log("[MyBoxCollider].DetectCollisionWithCollider: Unhandled collision type: " + other.gameObject.name);
         return false;
     }
-    
 }
