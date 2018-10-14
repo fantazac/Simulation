@@ -27,24 +27,20 @@ public class BallCollisionDetector : MonoBehaviour
 
     private void Update()
     {
-        if (PhysicsManager.DetectCollisionFromLayer(sphereCollider, GROUND_LAYER) != null)
+        MyCollider groundCollider = PhysicsManager.DetectCollisionFromLayer(sphereCollider, GROUND_LAYER);
+        if (groundCollider)
         {
             if (speed.y < 0)// Prevents the ball from sticking to the ground
             {
-                timeSinceCreation = 0;
-                initialYSpeed = -speed.y * SPEED_PERCENTAGE_KEPT_ON_COLLISION_WITH_FLOOR;
-                speed = new Vector3(speed.x, initialYSpeed, speed.z);
+                NotifyCollisionBetweenObjects(gameObject, groundCollider.gameObject);
+                UpdateBallSpeedOnGroundCollision();
             }
 
             MyCollider colorGiverCollider = PhysicsManager.DetectCollisionFromLayer(sphereCollider, COLOR_GIVER_LAYER);
             if (colorGiverCollider)
             {
-                MeshRenderer ballMeshRenderer = GetComponent<MeshRenderer>();
-                MeshRenderer colorGiverMeshRenderer = colorGiverCollider.GetComponent<MeshRenderer>();
-                if (!MeshesAreSameColor(ballMeshRenderer, colorGiverMeshRenderer))
-                {
-                    ballMeshRenderer.material.color = colorGiverMeshRenderer.material.color;
-                }
+                NotifyCollisionBetweenObjects(gameObject, colorGiverCollider.gameObject);
+                UpdateBallColorOnColorGiverCollision(colorGiverCollider);
             }
         }
 
@@ -63,8 +59,30 @@ public class BallCollisionDetector : MonoBehaviour
         return initialYSpeed + ACCELERATION * timeSinceCreation;
     }
 
+    private void UpdateBallSpeedOnGroundCollision()
+    {
+        timeSinceCreation = 0;
+        initialYSpeed = -speed.y * SPEED_PERCENTAGE_KEPT_ON_COLLISION_WITH_FLOOR;
+        speed = new Vector3(speed.x, initialYSpeed, speed.z);
+    }
+
+    private void UpdateBallColorOnColorGiverCollision(MyCollider colorGiverCollider)
+    {
+        MeshRenderer ballMeshRenderer = GetComponent<MeshRenderer>();
+        MeshRenderer colorGiverMeshRenderer = colorGiverCollider.GetComponent<MeshRenderer>();
+        if (!MeshesAreSameColor(ballMeshRenderer, colorGiverMeshRenderer))
+        {
+            ballMeshRenderer.material.color = colorGiverMeshRenderer.material.color;
+        }
+    }
+
     private bool MeshesAreSameColor(MeshRenderer meshA, MeshRenderer meshB)
     {
         return meshA.material.color == meshB.material.color;
+    }
+
+    private void NotifyCollisionBetweenObjects(GameObject objA, GameObject objB)
+    {
+        Debug.Log("Collision detected between " + objA.name + " and " + objB.name);
     }
 }

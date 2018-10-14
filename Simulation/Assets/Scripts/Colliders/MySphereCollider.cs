@@ -2,30 +2,34 @@
 
 public class MySphereCollider : MyCollider
 {
-    private float radius;
-
-    public float Radius { get { return radius; } }
+    public float Radius { get; private set; }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(transform.position, radius);
+        Gizmos.DrawSphere(transform.position, Radius);
     }
 
-    private void Start()
+    protected override void Start()
     {
-        radius = transform.localScale.x * 0.5f;
+        base.Start();
+
+        Radius = transform.localScale.x * 0.5f;
     }
 
     public override bool DetectCollisionWithCollider(MyCollider other)
     {
         if (other is MyBoxCollider)
+        {
             return PhysicsManager.OverlapSphereBox(this, (MyBoxCollider)other);
-
-        if (other is MySphereCollider)
+        }
+        else if (other is MySphereCollider)
+        {
             return PhysicsManager.OverlapSphereSphere(this, (MySphereCollider)other);
-
-        Debug.Log("[MyBoxCollider].DetectCollisionWithCollider: Unhandled collision type: " + other.gameObject.name);
-        return false;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

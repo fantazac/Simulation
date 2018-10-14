@@ -41,7 +41,6 @@ public class PhysicsManager : MonoBehaviour
 
             if (collider.DetectCollisionWithCollider(otherCollider))
             {
-                Debug.Log("Collision detected between " + collider.gameObject.name + " and " + otherCollider.gameObject.name);
                 return otherCollider;
             }
         }

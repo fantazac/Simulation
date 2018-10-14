@@ -36,7 +36,7 @@ public class GameLoopController : MonoBehaviour
 
             if (ASpawnerWon())
             {
-                Debug.Log("GAME FINISHED");
+                NotifyGameWinner();
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -95,5 +95,17 @@ public class GameLoopController : MonoBehaviour
     private bool ASpawnerWon()
     {
         return pointsSpawner1 == POINTS_REQUIRED_TO_WIN || pointsSpawner2 == POINTS_REQUIRED_TO_WIN;
+    }
+
+    private void NotifyGameWinner()
+    {
+        if(pointsSpawner1 == POINTS_REQUIRED_TO_WIN)
+        {
+            Debug.Log("GAME FINISHED - Spawner1 WINS!");
+        }
+        else
+        {
+            Debug.Log("GAME FINISHED - Spawner2 WINS!");
+        }
     }
 }

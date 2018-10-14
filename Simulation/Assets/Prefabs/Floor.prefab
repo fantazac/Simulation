@@ -21,10 +21,10 @@ GameObject:
   - component: {fileID: 4775110307198618}
   - component: {fileID: 33911475018653142}
   - component: {fileID: 23824536416498714}
-  - component: {fileID: 65170779305578760}
+  - component: {fileID: 114674607652205930}
   m_Layer: 8
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,15 +83,14 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1527584115923820}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65170779305578760
-BoxCollider:
+--- !u!114 &114674607652205930
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1527584115923820}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668f958516f6d2b41ac7841cdd169a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

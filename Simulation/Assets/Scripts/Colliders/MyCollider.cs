@@ -2,7 +2,7 @@
 
 public abstract class MyCollider : MonoBehaviour
 {
-    private void Start()
+    protected virtual void Start()
     {
         PhysicsManager.RegisterCollider(this);
     }
