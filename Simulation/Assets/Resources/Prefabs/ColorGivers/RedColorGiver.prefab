@@ -94,5 +94,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e47bcc972d3a76478b4e6b052804570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugDrawBounds: 0
-  radius: 1

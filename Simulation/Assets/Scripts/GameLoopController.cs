@@ -2,14 +2,12 @@
 
 public class GameLoopController : MonoBehaviour
 {
-    [SerializeField]
     private GameObject ballPrefab;
-    [SerializeField]
-    private Transform spawner1;
-    [SerializeField]
-    private Transform spawner2;
 
     private GameObject currentlySpawnedBall;
+
+    private Transform spawner1;
+    private Transform spawner2;
 
     private Transform currentSpawner;
 
@@ -18,6 +16,11 @@ public class GameLoopController : MonoBehaviour
 
     private const float LOWEST_POINT_FOR_BALLS = -2f;
     private const int POINTS_REQUIRED_TO_WIN = 5;
+
+    private void Start()
+    {
+        InitializeGame();
+    }
 
     private void Update()
     {
@@ -37,13 +40,26 @@ public class GameLoopController : MonoBehaviour
             if (ASpawnerWon())
             {
                 NotifyGameWinner();
-#if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-#else
-                    Application.Quit();
-#endif
+                ExitGame();
             }
         }
+    }
+
+    private void InitializeGame()
+    {
+        ballPrefab = Resources.Load<GameObject>("Prefabs/Ball");
+
+        spawner1 = Instantiate(Resources.Load<GameObject>("Prefabs/Spawners/Spawner1")).transform;
+        spawner2 = Instantiate(Resources.Load<GameObject>("Prefabs/Spawners/Spawner2")).transform;
+
+        Instantiate(Resources.Load<GameObject>("Prefabs/Floor"));
+
+        Instantiate(Resources.Load<GameObject>("Prefabs/ColorGivers/RedColorGiver"));
+        Instantiate(Resources.Load<GameObject>("Prefabs/ColorGivers/OrangeColorGiver"));
+        Instantiate(Resources.Load<GameObject>("Prefabs/ColorGivers/YellowColorGiver"));
+        Instantiate(Resources.Load<GameObject>("Prefabs/ColorGivers/GreenColorGiver"));
+        Instantiate(Resources.Load<GameObject>("Prefabs/ColorGivers/BlueColorGiver"));
+        Instantiate(Resources.Load<GameObject>("Prefabs/ColorGivers/PurpleColorGiver"));
     }
 
     private bool ABallIsInPlay()
@@ -99,7 +115,7 @@ public class GameLoopController : MonoBehaviour
 
     private void NotifyGameWinner()
     {
-        if(pointsSpawner1 == POINTS_REQUIRED_TO_WIN)
+        if (pointsSpawner1 == POINTS_REQUIRED_TO_WIN)
         {
             Debug.Log("GAME FINISHED - Spawner1 WINS!");
         }
@@ -107,5 +123,14 @@ public class GameLoopController : MonoBehaviour
         {
             Debug.Log("GAME FINISHED - Spawner2 WINS!");
         }
+    }
+
+    private void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+                    Application.Quit();
+#endif
     }
 }

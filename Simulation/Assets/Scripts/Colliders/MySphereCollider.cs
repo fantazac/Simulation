@@ -4,12 +4,6 @@ public class MySphereCollider : MyCollider
 {
     public float Radius { get; private set; }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(transform.position, Radius);
-    }
-
     protected override void Start()
     {
         base.Start();
